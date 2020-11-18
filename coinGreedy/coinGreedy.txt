@@ -1,0 +1,77 @@
+//Min amount of coins needed using greedy algorithm Made by Sam Strecker
+//11/9/2020
+
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class coinGreedy {
+
+    static int coinList[] = {1, 5, 10, 25, 50, 100};
+    static int n = coinList.length;
+
+    public static void main(String[] args) {
+
+        Scanner userInput = new Scanner(System.in);
+
+        System.out.println("Enter the dollar amount in cents: ");
+
+        int n = userInput.nextInt();
+
+        System.out.print(
+                "The minimum amount of coins needed for " + n + " cents is: ");
+        coinMin(n);
+    }
+
+
+    static void coinMin(int coinValue) {
+
+        int numPennies = 0, numDimes = 0, numNickels = 0, numQuarters = 0, numHalfDollar = 0, numDollars = 0;
+
+        ArrayList<Integer> array = new ArrayList<>();
+
+        for (int i = n - 1; i >= 0; i--) {
+            //traverses the array
+            while (coinValue >= coinList[i]) {
+                coinValue -= coinList[i];
+                array.add(coinList[i]);
+            }
+        }
+
+        //prints all elements in the arraylist
+        for (int i = 0; i < array.size(); i++) {
+
+            if (array.get(i) == 1) {
+                numPennies++;
+            } else if (array.get(i) == 5) {
+                numNickels++;
+            } else if (array.get(i) == 10) {
+                numDimes++;
+            } else if (array.get(i) == 25) {
+                numQuarters++;
+            } else if (array.get(i) == 50) {
+                numHalfDollar++;
+            } else if (array.get(i) == 100) {
+                numDollars++;
+            }
+
+        }
+        if (numPennies != 0) {
+            System.out.print("\nNumber of Pennies: " + numPennies);
+        }
+        if (numNickels != 0) {
+            System.out.print("\nNumber of Nickels: " + numNickels);
+        }
+        if (numDimes != 0) {
+            System.out.print("\nNumber of Dimes: " + numDimes);
+        }
+        if (numQuarters != 0) {
+            System.out.print("\nNumber of Quarters: " + numQuarters);
+        }
+        if (numHalfDollar != 0) {
+            System.out.print("\nNumber of Half Dollars: " + numHalfDollar);
+        }
+        if (numDollars != 0) {
+            System.out.print("\nNumber of Dollars: " + numDollars);
+        }
+    }
+}

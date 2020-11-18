@@ -1,0 +1,64 @@
+//quick sort made by Sam Strecker that utilizes divide and conquer
+//10/28/20
+
+public class quickSort {
+
+    public static void main(String[] args) {
+        int[] inputArray = {100, 3, 2, 55, 765, 334, 76, 2, 65, 33, 93, 94};
+
+        quickSort ob = new quickSort();
+        //ob.sort(inputArray, 0, inputArray.length - 1);
+        ob.sort(inputArray, 0, inputArray.length - 1);
+
+        System.out.println("The Sorted Array: ");
+        printArray(inputArray);
+    }
+
+    public static int divideInHalf(int array[], int lower, int upper) {
+
+
+        int midPoint = array[upper];
+        int i = (lower - 1);
+
+        for (int j = lower; j < upper; j++) {
+            if (array[j] <= midPoint) {
+                i++;
+                int temp = array[i];
+                array[i] = array[j];
+                array[j] = temp;
+            }
+        }
+
+        //System.out.println("Left: " + array[i]);
+        int temp = array[i + 1];
+        array[i + 1] = array[upper];
+        array[upper] = temp;
+
+        return i + 1;
+    }
+
+    //Recursive call to sort
+    void sort(int array[], int lower, int upper) {
+
+        int i = 0;
+        if (lower < upper) {
+            int splitArray = divideInHalf(array, lower, upper);
+            sort(array, lower, splitArray - 1);
+            sort(array, splitArray + 1, upper);
+        }
+       // System.out.println("Right: " + array[i]);
+    }
+
+
+    //helper function to print array properly
+    static void printArray(int array[]) {
+
+        for (int i = 0; i < array.length; ++i)
+            System.out.print(array[i] + " ");
+
+        System.out.println();
+    }
+
+}
+
+

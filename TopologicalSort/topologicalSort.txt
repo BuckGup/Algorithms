@@ -1,0 +1,91 @@
+//topological sort made by Sam Strecker
+//CS335 8/31/20
+
+import java.awt.*;
+import java.util.*;
+import java.lang.Math;
+import java.lang.Integer;
+
+public class topologicalSort {
+
+    private int Vertex;
+    private LinkedList<Integer> LinkedList[];
+
+    //main function for
+    public static void main(String args[]) {
+
+        //  int p = 0;
+        topologicalSort g = new topologicalSort(5);
+
+        //loop to make the vertices random
+       /* while (p < 5) {
+            g.edgeAdd(((int) Math.random()), ((int) Math.random()));
+            p++;
+        }
+        */
+        g.edgeAdd(1, 2);
+        System.out.println("[1,2]");
+        g.edgeAdd(2, 0);
+        System.out.println("[1,2,0]");
+        g.edgeAdd(3, 0);
+        System.out.println("[1,2,0,3]");
+        g.edgeAdd(1, 4);
+        System.out.println("[1,2,0,3,4]");
+        g.edgeAdd(2, 4);
+        g.edgeAdd(3, 0);
+
+
+        System.out.println("Sorted Graph Output: ");
+        g.topologicalSorter();
+    }
+
+    //function call
+    topologicalSort(int v) {
+        Vertex = v;
+        LinkedList = new LinkedList[v];
+        for (int i = 0; i < v; ++i)
+            LinkedList[i] = new LinkedList();
+    }
+
+    //helper function that determines traversal of graph
+    void topologicalSortHelper(int v, boolean visited[], Stack stack) {
+        visited[v] = true;
+        int i = 0;
+        Iterator<Integer> iterator = LinkedList[v].iterator();
+
+        while (iterator.hasNext()) {
+            i = iterator.next();
+
+            if (!visited[i]) {
+                topologicalSortHelper(i, visited, stack);
+            }
+        }
+
+        stack.push(new Integer(v));
+    }
+
+    //function to implement stack functionality of the graph
+    void topologicalSorter() {
+        Stack myStack = new Stack();
+        boolean haveVisited[] = new boolean[Vertex];
+
+        for (int i = 0; i < Vertex; i++)
+            haveVisited[i] = false;
+
+        for (int i = 0; i < Vertex; i++) {
+            if (haveVisited[i] == false) {
+                topologicalSortHelper(i, haveVisited, myStack);
+            }
+        }
+
+        while (myStack.empty() == false) {
+            System.out.print(myStack.pop() + " ");
+        }
+    }
+
+    void edgeAdd(int vertex, int side) {
+        //  System.out.println(LinkedList[vertex]);
+        LinkedList[vertex].add(side);
+       // System.out.println(LinkedList[vertex]);
+    }
+}

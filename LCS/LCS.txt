@@ -1,0 +1,55 @@
+//LCS utilizing dynamic programming made by Sam Strecker
+
+public class LCS {
+
+    public static void main(String[] args) {
+
+        //creation of new LCS
+        LCS longestComSub = new LCS();
+        // char charArray1[] = {'A', 'G', 'G', 'T', 'A', 'B', ' '};
+        // char charArray2[] = {'G', 'X', 'T', 'X', 'A', 'Y', 'B', ' '};
+
+        String string1_1 = "ABCDGH";
+        String string2_1 = "AEDFHR";
+
+        String string1_2 = "AGGTAB";
+        String string2_2 = "GXTXAYB";
+
+        //creation of the char arrays
+        char[] charArray1_1 = string1_1.toCharArray();
+        char[] charArray2_1 = string2_1.toCharArray();
+
+        char[] charArray1_2 = string1_2.toCharArray();
+        char[] charArray2_2 = string2_2.toCharArray();
+
+        //getting the length of each char array
+        int charArray1_1Length = charArray1_1.length;
+        int charArray2_1Length = charArray2_1.length;
+
+        int charArray1_2Length = charArray1_2.length;
+        int charArray2_2Length = charArray2_2.length;
+
+        //printing out to the system
+        System.out.println("LCS for input Sequences “ABCDGH” and “AEDFHR” is “ADH” of length "
+                + longestComSub.LCS(charArray1_1, charArray2_1, charArray1_1Length, charArray2_1Length));
+
+        System.out.println("\nLCS for input Sequences “AGGTAB” and “GXTXAYB” is “GTAB” of length "
+                + longestComSub.LCS(charArray1_2, charArray2_2, charArray1_2Length, charArray2_2Length));
+    }
+
+    //logic to compare the current with next element in both arrays
+    int LCS(char[] array1, char[] array2, int firstChar, int secondChar) {
+
+        if (firstChar == 0 || secondChar == 0) {
+            return 0;
+        }
+        if (array1[firstChar - 1] == array2[secondChar - 1]) {
+            return 1 + LCS(array1, array2, firstChar - 1, secondChar - 1);
+        }
+
+        else {
+            return Math.max(LCS(array1, array2, firstChar, secondChar - 1),
+                    LCS(array1, array2, firstChar - 1, secondChar));
+        }
+    }
+}

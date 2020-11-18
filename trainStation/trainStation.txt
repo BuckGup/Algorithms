@@ -1,0 +1,59 @@
+//Train station problem developed by Sam Strecker
+//10/10/2020
+
+import java.util.*;
+
+public class trainStation {
+
+    public static void main(String[] args) {
+
+        int arrival1[] = {900, 940, 950, 1100, 1500, 1800};
+        int departure1[] = {910, 1200, 1120, 1130, 1900, 2000};
+
+        int arrival2[] = {900, 940};
+        int departure2[] = {910, 1200};
+
+
+        int arrivalTime1 = arrival1.length;
+        System.out.println("Input: arr[] = {9:00, 9:40, 9:50, 11:00, 15:00, 18:00}\n" +
+                "dep[] = {9:10, 12:00, 11:20, 11:30, 19:00, 20:00}");
+        System.out.println("Minimum Number of Platforms Required = " + findPlatform(arrival1, departure1, arrivalTime1));
+        System.out.println("Explanation: There are at-most three trains at a time (time between 11:00 to 11:20)\n");
+
+
+        int arrivalTime2 = arrival2.length;
+        System.out.println("Input: arr[] = {9:00, 9:40}\ndep[] = {9:10, 12:00}");
+        System.out.println("Minimum Number of Platforms Required = " + findPlatform(arrival2, departure2, arrivalTime2));
+        System.out.println("Explanation: Only one platform is needed");
+
+    }
+
+    static int findPlatform(int array[], int departure[], int n) {
+
+        Arrays.sort(array);
+        Arrays.sort(departure);
+
+        int numPlatforms = 1;
+        int result = 1;
+        int i = 1, k = 0;
+
+
+        while (i < n && k < n) {
+
+            if (array[i] <= departure[k]) {
+                numPlatforms++;
+                i++;
+            } else if (array[i] > departure[k]) {
+                numPlatforms--;
+                k++;
+            }
+
+            //update the result for num of platforms needed
+            if (numPlatforms > result)
+                result = numPlatforms;
+        }
+
+        return result;
+    }
+}
+

@@ -1,0 +1,63 @@
+//Longest Increasing Subsequence using Dynamic Programming written by Sam Strecker
+//10/12/2020
+
+public class LISProg {
+    static int MAX_LENGTH;
+
+    public static void main(String args[]) {
+
+        int array1[] = {3, 10, 2, 1, 20};
+        int array2[] = {3, 2};
+        int array3[] = {50, 3, 10, 7, 40, 80};
+
+        int a1 = array1.length;
+        int a2 = array2.length;
+        int a3 = array3.length;
+
+        System.out.println("Input: arr[] = {3, 10, 2, 1, 20}");
+        System.out.println("Length of LIS = " + lis(array1, a1));
+        System.out.println("The longest increasing subsequence is {3, 10, 20}\n");
+
+        System.out.println("Input: arr[] = {3, 2}");
+        System.out.println("Length of LIS = " + lis(array2, a2));
+        System.out.println("The longest increasing subsequence is {3} and {2}\n");
+
+
+        System.out.println("Input: arr[] = {50, 3, 10, 7, 40, 80}");
+        System.out.println("Length of LIS = " + lis(array3, a3));
+        System.out.println("The longest increasing subsequence is {3, 7, 40, 80}\n");
+
+    }
+
+    static int lis(int array[], int arrayLength) {
+
+        LIS_Function(array, arrayLength);
+        return MAX_LENGTH;
+    }
+
+    static int LIS_Function(int array[], int arrayLength) {
+
+        int tempVar = 1;
+        int sequenceEnd = 1;
+
+        // Checks to see if there is only one element
+        if (arrayLength == 1) {
+            return 1;
+        }
+
+        for (int i = 1; i < arrayLength; i++) {
+            // Recursive call that adds one to the length of the array
+            tempVar = LIS_Function(array, i);
+
+            // Checks if the next element is not the end and if the next element is greater than the previous
+            if (array[i - 1] < array[arrayLength - 1] && tempVar + 1 > sequenceEnd)
+                sequenceEnd = tempVar + 1;
+        }
+
+        if (MAX_LENGTH < sequenceEnd) {
+            MAX_LENGTH = sequenceEnd;
+        }
+
+        return sequenceEnd;
+    }
+}
